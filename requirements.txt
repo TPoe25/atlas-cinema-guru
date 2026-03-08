@@ -1,0 +1,10 @@
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+requests==2.32.3
+flasgger==0.9.7.1
+Flask-SocketIO==5.3.6
+eventlet==0.36.1
+pytest==8.3.2
+Flask-Caching==2.0.1

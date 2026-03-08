@@ -1,0 +1,54 @@
+# TMDB Companion API — Project Proposal
+
+## What I Built
+
+This project is a custom REST API built with Flask that integrates with
+The Movie Database (TMDB). The API allows users to search for movies and TV shows,
+view trending content, fetch details, and manage session-based interactions.
+
+The goal was to design and implement a real backend API that runs locally,
+uses a database, integrates an external service, and is fully documented
+and testable.
+
+---
+
+## Why This Fits the Theme
+
+This project demonstrates:
+- Designing an API from scratch
+- Integrating a third-party API
+- Using a database for persistence
+- Implementing authentication workflows
+- Documenting and testing endpoints
+
+---
+
+## Tools Used
+
+- Python / Flask
+- PostgreSQL
+- SQLAlchemy
+- Flasgger (Swagger UI)
+- Flask-Caching
+- TMDB API
+- Postman
+
+---
+
+## Development Timeline (Estimated)
+
+- Design & planning: ~1 day
+- Environment & database setup: ~0.5 day
+- Core API endpoints: ~2 days
+- Authentication & sessions: ~1 day
+- Documentation & testing: ~1 day
+
+---
+
+## Success Criteria
+
+- API runs locally without errors
+- Endpoints return valid TMDB data
+- Database is used for persistence
+- Swagger documentation loads correctly
+- API can be tested using Postman

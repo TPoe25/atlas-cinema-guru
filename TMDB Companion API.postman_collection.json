@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "34cb1c0d-fe6c-41aa-a2fd-04c633c54ea9",
+		"name": "TMDB Companion API",
+		"description": "Local Flask API that proxies and extends TMDB's functionability",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41174839"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "health check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Movie Recommendations(Fight Club)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies/550/recommendations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"550",
+								"recommendations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie Details(Fight Club)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/movies/550",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"movies",
+								"550"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Movie (move is value)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/movies/search?q=anchorman&page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "anchorman"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create Guest Session **",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/guest-session",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"guest-session"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trending",
+			"item": [
+				{
+					"name": "Trending(all)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trending/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trending",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trending(Movies)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trending/movies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trending",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trending(TV)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trending/tv",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trending",
+								"tv"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TV",
+			"item": [
+				{
+					"name": "TV Recommendations (Game of Thrones)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tv/1399/recommendations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tv",
+								"1399",
+								"recommendations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TV Details (Game of Thrones)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tv/1399",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tv",
+								"1399"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
