@@ -6,3 +6,5 @@ venv/
 instance/
 .pytest_cache/
 node_modules
+node_modules
+node_modules
