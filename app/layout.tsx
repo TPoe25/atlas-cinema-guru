@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import AuthProvider from "@/components/auth/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Cinema Guru",
-  description: "Track favorites and watch later titles"
+  description: "Track favorites and watch later titles",
 };
 
 export default function RootLayout({
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
