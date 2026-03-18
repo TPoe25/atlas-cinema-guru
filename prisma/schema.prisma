@@ -8,76 +8,104 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  password     String
-  name        String
-  posts       Post[]
+  id            String       @id @default(cuid())
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  favorites     Favorite[]
+  watchLater    WatchLater[]
+  activities    Activity[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model Account {
-    id          String   @id @default(uuid())
-    email       String   @unique
-    password     String
-    user        User     @relation(fields: [id], references: [id])
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id          String   @id @default(uuid())
-    token       String
-    userId     String
-    user       User     @relation(fields: [userId], references: [id])
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model VarificationToken {
-    id          String   @id @default(uuid())
-    token       String
-    userId     String
-    user       User     @relation(fields: [userId], references: [id])
-}
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-model Comment {
-    id          String   @id @default(uuid())
-    content     String
-    postId     String
-    post       Post     @relation(fields: [postId], references: [id])
-    authorId    String
-    author      User     @relation(fields: [authorId], references: [id])
-}
-
-model Favorite {
-    id          String   @id @default(uuid())
-    userId     String
-    postId     String
-    post       Post     @relation(fields: [postId], references: [id])
-    authorId    String
-    author      User     @relation(fields: [authorId], references: [id])
-}
-
-model Activity {
-    id          String   @id @default(uuid())
-    type        String
-    userId     String
-    user       User     @relation(fields: [userId], references: [id])
-    postId     String
-    post       Post     @relation(fields: [postId], references: [id])
-}
-
-model Post {
-    id          String   @id @default(uuid())
-    title       String
-    content     String
-    createdAt    DateTime @default(now())
-    authorId    String
-    author      User     @relation(fields: [authorId], references: [id])
-    comments    Comment[]
-    favorites   Favorite[]
-    activities  Activity[]
+  @@unique([identifier, token])
 }
 
 model Title {
-    id          String   @id @default(uuid())
-    title       String
-    postId     String
-    post       Post     @relation(fields: [postId], references: [id])
+  id            Int           @id
+  name          String
+  overview      String        @db.Text
+  posterPath    String?
+  backdropPath  String?
+  releaseDate   DateTime?
+  year          Int?
+  genres        String[]
+  mediaType     String?
+  favorites     Favorite[]
+  watchLater    WatchLater[]
+  activities    Activity[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  titleId   Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     Title    @relation(fields: [titleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, titleId])
+}
+
+model WatchLater {
+  id        String   @id @default(cuid())
+  userId    String
+  titleId   Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     Title    @relation(fields: [titleId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, titleId])
+}
+
+model Activity {
+  id        String       @id @default(cuid())
+  userId    String
+  titleId   Int
+  type      ActivityType
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     Title        @relation(fields: [titleId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+}
+
+enum ActivityType {
+  FAVORITE
+  WATCH_LATER
 }

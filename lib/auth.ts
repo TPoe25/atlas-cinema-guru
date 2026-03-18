@@ -1,24 +1,26 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
-      clientId: process.env.AUTH_GITHUB_ID || process.env.GITHUB_ID || "",
-      clientSecret:
-        process.env.AUTH_GITHUB_SECRET || process.env.GITHUB_SECRET || "",
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   pages: {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }) {
-      if (session.user && token.email) {
-        session.user.email = token.email as string;
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
       }
       return session;
     },

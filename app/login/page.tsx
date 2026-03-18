@@ -20,7 +20,6 @@ export default async function LoginPage() {
         <p className="mt-3 text-sm text-slate-400">
           Sign in to explore movies, save favorites, and build your watch later list.
         </p>
-
         <div className="mt-8">
           <LoginButton />
         </div>
