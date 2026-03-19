@@ -100,6 +100,10 @@ DATABASE_URL=postgresql://localhost/tmdb_api
 SECRET_KEY=dev_secret
 ```
 
+Prisma uses `DATABASE_URL` for schema validation and database access in this project.
+
+For Vercel deployments, set `DATABASE_URL` in Project Settings -> Environment Variables to a managed Postgres connection string. `localhost`, `127.0.0.1`, and `host.docker.internal` will not work from Vercel.
+
 # Do not commit .env — it is ignored by .gitignore
 
 # How to run
