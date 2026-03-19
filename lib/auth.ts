@@ -12,17 +12,42 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
   pages: {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
       }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+      }
+
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+
+      try {
+        const targetUrl = new URL(url);
+
+        if (targetUrl.origin === baseUrl) {
+          return url;
+        }
+      } catch {
+        return baseUrl;
+      }
+
+      return baseUrl;
     },
   },
 };
